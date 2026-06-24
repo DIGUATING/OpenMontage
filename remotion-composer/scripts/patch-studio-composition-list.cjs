@@ -44,12 +44,155 @@ const esmDescriptions = `var compositionDescriptions = {
   EndTagOverlay: "叠加式结尾文字"
 };`;
 
+const studioUiTranslations = [
+  ["File an issue", "反馈问题"],
+  ["Open GitHub Repo", "打开 GitHub 仓库"],
+  ["Set input props...", "设置输入参数..."],
+  ["Render on web...", "网页渲染..."],
+  ["Render...", "渲染..."],
+  ["About Remotion", "关于 Remotion"],
+  ["Restart Studio Server", "重启 Studio 服务"],
+  ["Join Discord community", "加入 Discord 社区"],
+  ["Acknowledgements", "鸣谢"],
+  ["Changelog", "更新日志"],
+  ["License", "许可证"],
+  ["Docs", "文档"],
+  ["Ask AI", "询问 AI"],
+  ["Color Picker", "取色器"],
+  ["Timing Editor", "时间编辑器"],
+  ["Install packages", "安装软件包"],
+  ["Install...", "安装..."],
+  ["Preview size", "预览尺寸"],
+  ["Preview Size", "预览尺寸"],
+  ["Zoom and Pan Gestures", "缩放和平移手势"],
+  ["Disable Zoom and Pan Gestures", "关闭缩放和平移手势"],
+  ["Enable Zoom and Pan Gestures", "开启缩放和平移手势"],
+  ["Show Rulers", "显示标尺"],
+  ["Hide Rulers", "隐藏标尺"],
+  ["Show Guides", "显示参考线"],
+  ["Hide Guides", "隐藏参考线"],
+  ["Left Sidebar", "左侧栏"],
+  ["Right Sidebar", "右侧栏"],
+  ["Transparency as checkerboard", "透明背景显示为棋盘格"],
+  ["Show transparency as checkerboard (T)", "透明背景显示为棋盘格 (T)"],
+  ["Quick Switcher", "快速切换器"],
+  ["Timeline: Set In Mark", "时间轴：设置入点标记"],
+  ["Timeline: Set Out Mark", "时间轴：设置出点标记"],
+  ["Timeline: Clear In and Out Mark", "时间轴：清除入点和出点标记"],
+  ["Timeline: Go to frame", "时间轴：跳转到帧"],
+  ["In Mark", "入点标记"],
+  ["Out Mark", "出点标记"],
+  ["Clear In/Out Marks", "清除入点/出点标记"],
+  ["Go to frame", "跳转到帧"],
+  ["Go Fullscreen", "进入全屏"],
+  ["Fullscreen", "全屏"],
+  ["Responsive", "自适应"],
+  ["Expanded", "展开"],
+  ["Collapsed", "折叠"],
+  ["Compositions", "合成列表"],
+  ["Assets", "素材"],
+  ["Search...", "搜索..."],
+  ["Duration ", "时长 "],
+  ["Duration", "时长"],
+  ["Render", "渲染"],
+  ["Fit", "适应"],
+  ["Zoom out timeline", "缩小时间轴"],
+  ["Zoom in timeline", "放大时间轴"],
+  ["Change the playback rate", "更改播放速度"],
+  ["Jump to beginning", "跳到开头"],
+  ["Step back one frame", "后退一帧"],
+  ["Step forward one frame", "前进一帧"],
+  ["Loop video", "循环播放"],
+  ["Mute video", "静音"],
+  ["Unmute video", "取消静音"],
+  ["Mark In (I) - right click to clear", "设置入点 (I) - 右键清除"],
+  ["Mark Out (O) - right click to clear", "设置出点 (O) - 右键清除"],
+  ["Show transparency as checkerboard", "透明背景显示为棋盘格"],
+  ["Enter fullscreen preview (F)", "进入全屏预览 (F)"],
+  ["Exit fullscreen preview (F)", "退出全屏预览 (F)"],
+  ["Enter fullscreen preview", "进入全屏预览"],
+  ["Exit fullscreen preview", "退出全屏预览"],
+  ["Copy staticFile() name", "复制 staticFile() 名称"],
+  ["Open in Explorer", "在资源管理器中打开"],
+  ["Open in Finder", "在访达中打开"],
+  ["Toggle Left Sidebar", "切换左侧栏"],
+  ["Toggle Right Sidebar", "切换右侧栏"],
+  ["Actions", "操作"],
+  ["Documentation", "文档搜索"],
+  ["Play", "播放"],
+  ["Pause", "暂停"],
+  ["File", "文件"],
+  ["View", "视图"],
+  ["Tools", "工具"],
+  ["Packages", "软件包"],
+  ["Help", "帮助"],
+];
+
+const studioUiRawFragments = [
+  ["Timeline zoom (", "时间轴缩放 ("],
+];
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function escapeJsString(value, quote) {
+  return value.replace(/\\/g, "\\\\").replace(new RegExp(escapeRegExp(quote), "g"), `\\${quote}`);
+}
+
+function replaceQuotedText(source, from, to) {
+  let next = source;
+  for (const quote of ["'", '"', "`"]) {
+    const escapedFrom = escapeJsString(from, quote);
+    const escapedTo = escapeJsString(to, quote);
+    next = next.replace(
+      new RegExp(`${escapeRegExp(quote)}${escapeRegExp(escapedFrom)}${escapeRegExp(quote)}`, "g"),
+      `${quote}${escapedTo}${quote}`,
+    );
+  }
+  return next;
+}
+
+function patchStudioUiText(source) {
+  let next = source;
+  for (const [from, to] of studioUiTranslations) {
+    next = replaceQuotedText(next, from, to);
+  }
+  for (const [from, to] of studioUiRawFragments) {
+    next = next.replace(new RegExp(escapeRegExp(from), "g"), to);
+  }
+  return next;
+}
+
+function walkJavaScriptFiles(dir, files = []) {
+  if (!fs.existsSync(dir)) {
+    return files;
+  }
+
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      walkJavaScriptFiles(fullPath, files);
+    } else if (entry.isFile() && (entry.name.endsWith(".js") || entry.name.endsWith(".mjs"))) {
+      files.push(fullPath);
+    }
+  }
+
+  return files;
+}
+
+function patchGenericStudioUi(target) {
+  let source = fs.readFileSync(target, "utf8");
+  source = patchStudioUiText(source);
+  fs.writeFileSync(target, source);
+}
+
 function patchCjs(target) {
   if (!fs.existsSync(target)) {
     throw new Error(`Remotion Studio file not found: ${target}`);
   }
 
-  let source = fs.readFileSync(target, "utf8");
+  let source = patchStudioUiText(fs.readFileSync(target, "utf8"));
 
   source = source.replace("const COMPOSITION_ITEM_HEIGHT = 32;", "const COMPOSITION_ITEM_HEIGHT = 58;");
 
@@ -87,7 +230,7 @@ function patchEsm(target) {
     return;
   }
 
-  let source = fs.readFileSync(target, "utf8");
+  let source = patchStudioUiText(fs.readFileSync(target, "utf8"));
   if (!source.includes("__remotion-composition") || !source.includes("COMPOSITION_ITEM_HEIGHT")) {
     return;
   }
@@ -161,7 +304,12 @@ if (fs.existsSync(esmDir)) {
   }
 }
 
+const studioDistDir = path.join(root, "node_modules", "@remotion", "studio", "dist");
+for (const file of walkJavaScriptFiles(studioDistDir)) {
+  patchGenericStudioUi(file);
+}
+
 const cacheDir = path.join(root, "node_modules", ".cache", "webpack");
 fs.rmSync(cacheDir, { recursive: true, force: true });
 
-console.log("Patched Remotion Studio composition list with Chinese descriptions.");
+console.log("Patched Remotion Studio composition list and Chinese UI labels.");
