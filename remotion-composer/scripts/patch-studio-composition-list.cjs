@@ -50,6 +50,10 @@ const studioUiTranslations = [
   ["Set input props...", "设置输入参数..."],
   ["Render on web...", "网页渲染..."],
   ["Render...", "渲染..."],
+  ["Render video", "渲染视频"],
+  ["Render audio", "渲染音频"],
+  ["Render still", "渲染静帧"],
+  ["Render sequence", "渲染图片序列"],
   ["About Remotion", "关于 Remotion"],
   ["Restart Studio Server", "重启 Studio 服务"],
   ["Join Discord community", "加入 Discord 社区"],
@@ -96,6 +100,39 @@ const studioUiTranslations = [
   ["Duration", "时长"],
   ["Render", "渲染"],
   ["Fit", "适应"],
+  ["Still", "静帧"],
+  ["Video", "视频"],
+  ["Audio", "音频"],
+  ["Image sequence", "图片序列"],
+  ["General", "常规"],
+  ["Input Props", "输入参数"],
+  ["Picture", "画面"],
+  ["Other", "其他"],
+  ["Codec", "编码器"],
+  ["Format", "格式"],
+  ["Frame", "帧"],
+  ["Frame range", "帧范围"],
+  ["Folder name", "文件夹名称"],
+  ["Output name", "输出文件名"],
+  ["Download name", "下载文件名"],
+  ["Log Level ", "日志级别 "],
+  ["Log Level", "日志级别"],
+  ["Info", "信息"],
+  ["Scale", "缩放"],
+  ["Quality", "质量"],
+  ["Bitrate", "码率"],
+  ["Pixel format", "像素格式"],
+  ["Pixel Format", "像素格式"],
+  ["Color space", "色彩空间"],
+  ["Muted", "静音"],
+  ["Audio Codec ", "音频编码器 "],
+  ["Audio Codec", "音频编码器"],
+  ["Enforce Audio Track", "强制包含音轨"],
+  ["Every nth frame", "每隔 N 帧"],
+  ["Limit GIF loops", "限制 GIF 循环次数"],
+  ["Concurrency", "并发数"],
+  ["User Agent", "用户代理"],
+  ["Learn more about this option", "了解这个选项"],
   ["Zoom out timeline", "缩小时间轴"],
   ["Zoom in timeline", "放大时间轴"],
   ["Change the playback rate", "更改播放速度"],
@@ -130,6 +167,12 @@ const studioUiTranslations = [
 
 const studioUiRawFragments = [
   ["Timeline zoom (", "时间轴缩放 ("],
+  ["Output resolution: ", "输出分辨率："],
+  ["Render ${resolvedComposition.id}", "渲染 ${resolvedComposition.id}"],
+  [
+    "`Render ${renderMode}`",
+    '({ still: "渲染静帧", video: "渲染视频", audio: "渲染音频", sequence: "渲染图片序列" })[renderMode] ?? `渲染 ${renderMode}`',
+  ],
 ];
 
 function escapeRegExp(value) {
@@ -159,7 +202,7 @@ function patchStudioUiText(source) {
     next = replaceQuotedText(next, from, to);
   }
   for (const [from, to] of studioUiRawFragments) {
-    next = next.replace(new RegExp(escapeRegExp(from), "g"), to);
+    next = next.replace(new RegExp(escapeRegExp(from), "g"), () => to);
   }
   return next;
 }
