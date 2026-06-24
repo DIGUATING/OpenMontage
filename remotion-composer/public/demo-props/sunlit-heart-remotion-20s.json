@@ -1,0 +1,103 @@
+{
+  "theme": "anime-ghibli",
+  "themeConfig": {
+    "primaryColor": "#2D5016",
+    "accentColor": "#F5C84B",
+    "backgroundColor": "#0E2018",
+    "surfaceColor": "#13271B",
+    "textColor": "#FFF7DC",
+    "mutedTextColor": "#D9C98A",
+    "headingFont": "Noto Serif JP",
+    "bodyFont": "Noto Sans",
+    "monoFont": "Fira Code",
+    "chartColors": ["#F5C84B", "#9DBB8A", "#FFF7DC", "#DDA82D"],
+    "springConfig": { "damping": 18, "stiffness": 60, "mass": 1 },
+    "transitionDuration": 1,
+    "captionHighlightColor": "#F5C84B",
+    "captionBackgroundColor": "rgba(14,32,24,0.72)"
+  },
+  "cuts": [
+    {
+      "id": "sunlit-open",
+      "source": "",
+      "type": "anime_scene",
+      "in_seconds": 0,
+      "out_seconds": 6.5,
+      "images": ["sunlit-heart-remotion-20s/26062301.jpg"],
+      "animation": "zoom-in",
+      "particles": "sparkles",
+      "particleColor": "#F5C84B",
+      "particleCount": 28,
+      "particleIntensity": 0.72,
+      "backgroundColor": "#0E2018",
+      "vignette": true,
+      "lightingFrom": "rgba(255,220,120,0.22)",
+      "lightingTo": "rgba(157,187,138,0.08)"
+    },
+    {
+      "id": "sunlit-heart",
+      "source": "",
+      "type": "anime_scene",
+      "in_seconds": 6.5,
+      "out_seconds": 13.5,
+      "images": ["sunlit-heart-remotion-20s/26062301.jpg"],
+      "animation": "pan-right",
+      "particles": "petals",
+      "particleColor": "#F5C84B",
+      "particleCount": 22,
+      "particleIntensity": 0.68,
+      "backgroundColor": "#0E2018",
+      "vignette": true,
+      "lightingFrom": "rgba(245,200,75,0.14)",
+      "lightingTo": "rgba(255,247,220,0.16)"
+    },
+    {
+      "id": "sunlit-close",
+      "source": "",
+      "type": "anime_scene",
+      "in_seconds": 13.5,
+      "out_seconds": 20,
+      "images": ["sunlit-heart-remotion-20s/26062301.jpg"],
+      "animation": "drift-up",
+      "particles": "light-rays",
+      "particleColor": "#FFE9A6",
+      "particleCount": 18,
+      "particleIntensity": 0.5,
+      "backgroundColor": "#0E2018",
+      "vignette": true,
+      "lightingFrom": "rgba(255,247,220,0.2)",
+      "lightingTo": "rgba(245,200,75,0.12)"
+    }
+  ],
+  "overlays": [
+    {
+      "type": "stat_reveal",
+      "in_seconds": 0.8,
+      "out_seconds": 5.8,
+      "text": "慢慢发光",
+      "subtitle": "不用急，春天会找到你",
+      "accentColor": "#F5C84B",
+      "position": "center"
+    },
+    {
+      "type": "stat_reveal",
+      "in_seconds": 7.0,
+      "out_seconds": 12.8,
+      "text": "心里的花",
+      "subtitle": "先养开，再出发",
+      "accentColor": "#F5C84B",
+      "position": "bottom-right"
+    },
+    {
+      "type": "stat_reveal",
+      "in_seconds": 14.0,
+      "out_seconds": 19.4,
+      "text": "明天会亮",
+      "subtitle": "把今天过温柔",
+      "accentColor": "#FFF7DC",
+      "position": "bottom-right"
+    }
+  ],
+  "captions": [],
+  "audio": {}
+}

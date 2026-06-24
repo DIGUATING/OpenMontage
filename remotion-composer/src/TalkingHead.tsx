@@ -313,14 +313,32 @@ export const TalkingHead: React.FC<TalkingHeadProps> = ({
   highlightColor = "#22D3EE",
 }) => {
   const { fps } = useVideoConfig();
+  const hasVideo = Boolean(videoSrc);
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
       {/* Layer 1: Video background */}
-      <OffthreadVideo
-        src={videoSrc}
-        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-      />
+      {hasVideo ? (
+        <OffthreadVideo
+          src={videoSrc}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      ) : (
+        <AbsoluteFill
+          style={{
+            background:
+              "radial-gradient(circle at 50% 35%, #1E293B 0%, #020617 58%, #000 100%)",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "#CBD5E1",
+            fontFamily: "Inter, system-ui, sans-serif",
+            fontSize: 42,
+            letterSpacing: 0,
+          }}
+        >
+          TalkingHead preview needs a videoSrc.
+        </AbsoluteFill>
+      )}
 
       {/* Layer 2: Overlays (charts, stats, callouts, etc.) */}
       {overlays?.map((overlay, i) => {

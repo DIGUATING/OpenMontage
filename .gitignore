@@ -1,5 +1,6 @@
 # Python
 __pycache__/
+.venv/
 *.pyc
 *.pyo
 *.egg-info/
@@ -80,6 +81,9 @@ remotion-composer/out/
 remotion-composer/public/*
 # But keep demo props (shipped with the project for zero-key demos)
 !remotion-composer/public/demo-props/
+# Keep the curated single-image Remotion demo asset.
+!remotion-composer/public/sunlit-heart-remotion-20s/
+!remotion-composer/public/sunlit-heart-remotion-20s/26062301.jpg
 # Ignore test/scratch compositions in demo-props (keep only curated demos)
 remotion-composer/public/demo-props/test-*
 remotion-composer/public/demo-props/talking-head-*

@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Remotion composition renderer for OpenMontage animated explainer videos",
   "scripts": {
-    "start": "npx remotion studio",
+    "postinstall": "node scripts/patch-studio-composition-list.cjs",
+    "start": "node scripts/patch-studio-composition-list.cjs && npx remotion studio",
+    "studio:zh": "node scripts/patch-studio-composition-list.cjs && npx remotion studio src/index.tsx --props=public/demo-props/sunlit-heart-remotion-20s-zh.json --port=3001 --force-new",
     "build": "npx remotion render src/index.tsx Explainer out/video.mp4",
     "upgrade": "npx remotion upgrade"
   },

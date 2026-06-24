@@ -11,9 +11,13 @@ import {
   calculateTitledVideoMetadata,
 } from "./TitledVideo";
 import { EndTag, EndTagProps } from "./components/EndTag";
-import { HeroTitle } from "./components/HeroTitle";
+import { HeroTitle, HeroTitleProps } from "./components/HeroTitle";
 import { ProductReveal, ProductRevealProps } from "./components/ProductReveal";
-import { CaptionOverlay, WordCaption } from "./components/CaptionOverlay";
+import {
+  CaptionOverlay,
+  CaptionOverlayProps,
+  WordCaption,
+} from "./components/CaptionOverlay";
 import { CollageBurst, CollageBurstProps } from "./CollageBurst";
 import { LyricOverlay, LyricOverlayProps } from "./LyricOverlay";
 
@@ -132,6 +136,32 @@ const calculateMetadata: CalculateMetadataFunction<ExplainerProps> = async ({
   return { durationInFrames: Math.ceil((lastEnd + 1) * 30) };
 };
 
+type StudioComponent = React.FC<Record<string, unknown>>;
+
+const HeroTitleForStudio: StudioComponent = (props) => (
+  <HeroTitle {...(props as unknown as HeroTitleProps)} />
+);
+
+const ProductRevealForStudio: StudioComponent = (props) => (
+  <ProductReveal {...(props as unknown as ProductRevealProps)} />
+);
+
+const CaptionOverlayForStudio: StudioComponent = (props) => (
+  <CaptionOverlay {...(props as unknown as CaptionOverlayProps)} />
+);
+
+const CollageBurstForStudio: StudioComponent = (props) => (
+  <CollageBurst {...(props as unknown as CollageBurstProps)} />
+);
+
+const LyricOverlayForStudio: StudioComponent = (props) => (
+  <LyricOverlay {...(props as unknown as LyricOverlayProps)} />
+);
+
+const EndTagForStudio: StudioComponent = (props) => (
+  <EndTag {...(props as unknown as EndTagProps)} />
+);
+
 export const Root: React.FC = () => {
   return (
     <>
@@ -211,7 +241,7 @@ export const Root: React.FC = () => {
       />
       <Composition
         id="HeroTitle"
-        component={HeroTitle}
+        component={HeroTitleForStudio}
         durationInFrames={30 * 17}
         fps={30}
         width={1920}
@@ -223,13 +253,13 @@ export const Root: React.FC = () => {
       />
       <Composition
         id="ProductReveal"
-        component={ProductReveal}
+        component={ProductRevealForStudio}
         durationInFrames={30 * 8}
         fps={30}
         width={1280}
         height={720}
         defaultProps={{
-          productImage: "airnothing/product.png",
+          productImage: "sunlit-heart-remotion-20s/26062301.jpg",
           productName: "AirNothing Pro Max Ultra",
           price: "Starting at $999",
           tagline: "Nothing included.",
@@ -239,13 +269,13 @@ export const Root: React.FC = () => {
       />
       <Composition
         id="ProductRevealVertical"
-        component={ProductReveal}
+        component={ProductRevealForStudio}
         durationInFrames={30 * 8}
         fps={30}
         width={720}
         height={1280}
         defaultProps={{
-          productImage: "airnothing/product.png",
+          productImage: "sunlit-heart-remotion-20s/26062301.jpg",
           productName: "AirNothing Pro Max Ultra",
           price: "Starting at $999",
           tagline: "Nothing included.",
@@ -255,7 +285,7 @@ export const Root: React.FC = () => {
       />
       <Composition
         id="CaptionOverlayOnly"
-        component={CaptionOverlay}
+        component={CaptionOverlayForStudio}
         durationInFrames={30 * 300}
         fps={30}
         width={1920}
@@ -270,7 +300,7 @@ export const Root: React.FC = () => {
       />
       <Composition
         id="CollageBurst"
-        component={CollageBurst}
+        component={CollageBurstForStudio}
         durationInFrames={30 * 30}
         fps={30}
         width={1080}
@@ -285,7 +315,7 @@ export const Root: React.FC = () => {
       />
       <Composition
         id="LyricOverlay"
-        component={LyricOverlay}
+        component={LyricOverlayForStudio}
         durationInFrames={30 * 28}
         fps={30}
         width={1080}
@@ -298,7 +328,7 @@ export const Root: React.FC = () => {
       />
       <Composition
         id="EndTag"
-        component={EndTag}
+        component={EndTagForStudio}
         // 5.5s at 30fps = 165 frames. Render CLI can override via --props.
         durationInFrames={165}
         fps={30}
@@ -314,7 +344,7 @@ export const Root: React.FC = () => {
       />
       <Composition
         id="EndTagOverlay"
-        component={EndTag}
+        component={EndTagForStudio}
         // 8.19s at 30fps = 246 frames. Render CLI can override via --props.
         // Intended to be composited on top of body footage, not concat'd.
         durationInFrames={246}

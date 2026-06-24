@@ -20,6 +20,7 @@ const { fontFamily } = loadFont("normal", {
 });
 
 export interface TitledVideoProps {
+  [key: string]: unknown;
   videoSrc: string;
   tagline: string;
   // When the tagline starts animating in, in seconds from the start of the video.
@@ -201,6 +202,7 @@ export const TitledVideo: React.FC<TitledVideoProps> = ({
   accentColor = "#F5C470",
 }) => {
   const { fps, durationInFrames } = useVideoConfig();
+  const hasVideo = Boolean(videoSrc);
 
   const inFrame = Math.max(0, Math.round(taglineInSeconds * fps));
   const endFrame =
@@ -214,14 +216,23 @@ export const TitledVideo: React.FC<TitledVideoProps> = ({
       {/* Full-bleed background video — no fades, no vignette, no color shift.
           The source is already color-graded final.mp4 with music baked in;
           we play it through untouched, audio included. */}
-      <OffthreadVideo
-        src={resolveAsset(videoSrc)}
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-        }}
-      />
+      {hasVideo ? (
+        <OffthreadVideo
+          src={resolveAsset(videoSrc)}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
+      ) : (
+        <AbsoluteFill
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 30%, rgba(245,196,112,0.18) 0%, rgba(10,8,6,0.92) 50%, #000 100%)",
+          }}
+        />
+      )}
 
       {/* Tagline overlay in its own Sequence so it mounts exactly on the
           fade-in frame and carries its own local frame counter. */}
@@ -244,6 +255,15 @@ export const TitledVideo: React.FC<TitledVideoProps> = ({
 export const calculateTitledVideoMetadata: CalculateMetadataFunction<
   TitledVideoProps
 > = async ({ props }) => {
+  if (!props.videoSrc) {
+    return {
+      durationInFrames: 30 * 60,
+      fps: 30,
+      width: 1920,
+      height: 1080,
+    };
+  }
+
   try {
     const meta = await getVideoMetadata(resolveAsset(props.videoSrc));
     return {

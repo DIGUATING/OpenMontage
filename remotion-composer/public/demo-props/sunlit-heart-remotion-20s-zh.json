@@ -1,0 +1,106 @@
+{
+  "theme": "anime-ghibli",
+  "themeConfig": {
+    "primaryColor": "#2D5016",
+    "accentColor": "#F5C84B",
+    "backgroundColor": "#0E2018",
+    "surfaceColor": "#13271B",
+    "textColor": "#FFF7DC",
+    "mutedTextColor": "#D9C98A",
+    "headingFont": "Songti SC, STSong, Noto Serif CJK SC, Noto Serif SC, serif",
+    "bodyFont": "PingFang SC, Hiragino Sans GB, Microsoft YaHei, Noto Sans CJK SC, Noto Sans SC, sans-serif",
+    "monoFont": "Fira Code",
+    "chartColors": ["#F5C84B", "#9DBB8A", "#FFF7DC", "#DDA82D"],
+    "springConfig": { "damping": 18, "stiffness": 60, "mass": 1 },
+    "transitionDuration": 1,
+    "captionHighlightColor": "#F5C84B",
+    "captionBackgroundColor": "rgba(14,32,24,0.72)"
+  },
+  "cuts": [
+    {
+      "id": "zh-open",
+      "source": "",
+      "type": "anime_scene",
+      "in_seconds": 0,
+      "out_seconds": 6.5,
+      "images": ["sunlit-heart-remotion-20s/26062301.jpg"],
+      "animation": "zoom-in",
+      "particles": "sparkles",
+      "particleColor": "#F5C84B",
+      "particleCount": 30,
+      "particleIntensity": 0.72,
+      "backgroundColor": "#0E2018",
+      "vignette": true,
+      "lightingFrom": "rgba(255,220,120,0.22)",
+      "lightingTo": "rgba(157,187,138,0.08)"
+    },
+    {
+      "id": "zh-heart",
+      "source": "",
+      "type": "anime_scene",
+      "in_seconds": 6.5,
+      "out_seconds": 13.5,
+      "images": ["sunlit-heart-remotion-20s/26062301.jpg"],
+      "animation": "pan-right",
+      "particles": "petals",
+      "particleColor": "#F5C84B",
+      "particleCount": 24,
+      "particleIntensity": 0.68,
+      "backgroundColor": "#0E2018",
+      "vignette": true,
+      "lightingFrom": "rgba(245,200,75,0.14)",
+      "lightingTo": "rgba(255,247,220,0.16)"
+    },
+    {
+      "id": "zh-close",
+      "source": "",
+      "type": "anime_scene",
+      "in_seconds": 13.5,
+      "out_seconds": 20,
+      "images": ["sunlit-heart-remotion-20s/26062301.jpg"],
+      "animation": "drift-up",
+      "particles": "light-rays",
+      "particleColor": "#FFE9A6",
+      "particleCount": 20,
+      "particleIntensity": 0.5,
+      "backgroundColor": "#0E2018",
+      "vignette": true,
+      "lightingFrom": "rgba(255,247,220,0.2)",
+      "lightingTo": "rgba(245,200,75,0.12)"
+    }
+  ],
+  "overlays": [
+    {
+      "type": "stat_reveal",
+      "in_seconds": 0.8,
+      "out_seconds": 5.8,
+      "text": "愿你心里有光",
+      "subtitle": "慢一点，也会走到花开",
+      "accentColor": "#F5C84B",
+      "position": "center",
+      "fontFamily": "Songti SC, STSong, Noto Serif CJK SC, Noto Serif SC, serif"
+    },
+    {
+      "type": "stat_reveal",
+      "in_seconds": 7.0,
+      "out_seconds": 12.8,
+      "text": "把自己养好",
+      "subtitle": "先温柔，再勇敢",
+      "accentColor": "#F5C84B",
+      "position": "bottom-right",
+      "fontFamily": "Songti SC, STSong, Noto Serif CJK SC, Noto Serif SC, serif"
+    },
+    {
+      "type": "stat_reveal",
+      "in_seconds": 14.0,
+      "out_seconds": 19.4,
+      "text": "明天会更亮",
+      "subtitle": "今天的努力都算数",
+      "accentColor": "#FFF7DC",
+      "position": "bottom-right",
+      "fontFamily": "Songti SC, STSong, Noto Serif CJK SC, Noto Serif SC, serif"
+    }
+  ],
+  "captions": [],
+  "audio": {}
+}

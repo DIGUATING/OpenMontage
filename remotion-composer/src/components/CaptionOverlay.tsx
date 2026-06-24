@@ -14,7 +14,7 @@ export interface WordCaption {
   endMs: number;
 }
 
-interface CaptionOverlayProps {
+export interface CaptionOverlayProps {
   words: WordCaption[];
   // How many words to show at once in a "page"
   wordsPerPage?: number;

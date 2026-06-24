@@ -1,38 +1,27 @@
-import { staticFile } from "remotion";
 import { CinematicRendererProps } from "./types";
 
 export const signalFromTomorrowWithMusicFixture: CinematicRendererProps = {
   titleFontSize: 78,
   titleWidth: 1320,
   signalLineCount: 18,
-  soundtrack: {
-    src: staticFile(
-      "music/signal-from-tomorrow/cinematic_time_hans_zimmer_style.mp3",
-    ),
-    volume: 0.42,
-    fadeInSeconds: 1.5,
-    fadeOutSeconds: 2.5,
-  },
   scenes: [
     {
       id: "sc1",
-      kind: "video",
+      kind: "title",
       startSeconds: 0,
       durationSeconds: 4,
-      src: staticFile("video/signal-from-tomorrow/sample_observatory_veo31_ref.mp4"),
-      tone: "cold",
-      trimBeforeSeconds: 1,
-      fadeInFrames: 0,
+      text: "SIGNAL FROM TOMORROW",
+      accent: "#89d7ff",
+      intensity: 1,
     },
     {
       id: "sc2",
-      kind: "video",
+      kind: "title",
       startSeconds: 4,
       durationSeconds: 4,
-      src: staticFile(
-        "video/signal-from-tomorrow/sc2_mission_control_veo31_ref_8s.mp4",
-      ),
-      tone: "steel",
+      text: "A LOCAL PREVIEW FIXTURE",
+      accent: "#a6e6ff",
+      intensity: 0.9,
     },
     {
       id: "sc3",
@@ -45,11 +34,12 @@ export const signalFromTomorrowWithMusicFixture: CinematicRendererProps = {
     },
     {
       id: "sc4",
-      kind: "video",
+      kind: "title",
       startSeconds: 11,
       durationSeconds: 7,
-      src: staticFile("video/signal-from-tomorrow/sc4_launch_departure_veo31_ref.mp4"),
-      tone: "cold",
+      text: "NO EXTERNAL MEDIA REQUIRED",
+      accent: "#89d7ff",
+      intensity: 1.05,
     },
     {
       id: "sc5",
@@ -62,13 +52,12 @@ export const signalFromTomorrowWithMusicFixture: CinematicRendererProps = {
     },
     {
       id: "sc6",
-      kind: "video",
+      kind: "title",
       startSeconds: 21,
       durationSeconds: 6,
-      src: staticFile(
-        "video/signal-from-tomorrow/sc6_orbital_paradox_veo31_ref_8s.mp4",
-      ),
-      tone: "void",
+      text: "SAFE TO CLICK IN STUDIO",
+      accent: "#a6e6ff",
+      intensity: 0.95,
     },
     {
       id: "sc7",

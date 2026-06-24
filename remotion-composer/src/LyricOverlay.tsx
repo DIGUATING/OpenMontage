@@ -162,9 +162,19 @@ export const LyricOverlay: React.FC<LyricOverlayProps> = ({
   bottomY = 0.88,
 }) => {
   const { durationInFrames } = useVideoConfig();
+  const hasVideo = Boolean(videoSrc);
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
-      <OffthreadVideo src={resolveAsset(videoSrc)} />
+      {hasVideo ? (
+        <OffthreadVideo src={resolveAsset(videoSrc)} />
+      ) : (
+        <AbsoluteFill
+          style={{
+            background:
+              "linear-gradient(180deg, #111827 0%, #020617 62%, #000 100%)",
+          }}
+        />
+      )}
       {lyrics.map((l, i) => (
         <LyricLine key={i} lyric={l} bottomY={bottomY} />
       ))}
